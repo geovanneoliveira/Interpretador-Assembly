@@ -1,0 +1,47 @@
+Linha: 	Instrucao KW_BARRAN
+		| Label KW_COLON Intrucao KW_BARRAN
+		;
+
+Instrucao: Soma | Subtracao | Multiplicacao | Divisao | Push | Pop | Incrementar | Decremmentar
+		 | Jump_zero | Jump_not_zero | Jump_equals | Jump_not_equals | And | Or | Load
+		 ;
+
+
+Soma: KW_ADD KW_REG KW_REG KW_REG;
+
+Subtracao: KW_SUB KW_REG KW_REG KW_REG;
+
+Multiplicacao: KW_MUL KW_REG KW_REG KW_REG; 
+
+Divisao: KW_DIV KW_REG KW_REG KW_REG;
+
+Push: KW_PUSH KW_REG;
+
+Pop: KW_POP KW_REG;
+
+Incrementar: KW_INC KW_REG;
+
+Decremmentar: KW_DEC KW_REG;
+
+Jump_zero: KW_JZ KW_REG KW_ABRE_CONCHETES Label KW_FECHA_CONCHETES;
+
+Jump_not_zero: KW_JNZ KW_REG KW_ABRE_CONCHETES Label KW_FECHA_CONCHETES;
+
+Jump_equals: KW_JE KW_REG KW_REG KW_ABRE_CONCHETES Label KW_FECHA_CONCHETES;
+
+Jump_not_equals: KW_JNE KW_REG KW_REG KW_ABRE_CONCHETES Label KW_FECHA_CONCHETES; 
+
+And: KW_AND KW_REG KW_REG KW_REG;
+
+Or: KW_OR KW_REG KW_REG KW_REG;
+
+Load: KW_LD KW_REG KW_REG
+	| KW_LD KW_REG KW_ABRE_CONCHETES KW_NUMBER KW_FECHA_CONCHETES
+	| KW_LD KW_REG KW_ABRE_CONCHETES KW_VARIAVEL KW_FECHA_CONCHETES
+	| KW_LD KW_REG KW_ENDRECO
+	;
+
+Sto: KW_STO KW_REG KW_ENDRECO;
+
+Call: KW_CALL KW_ABRE_CONCHETES Label KW_FECHA_CONCHETES;
+

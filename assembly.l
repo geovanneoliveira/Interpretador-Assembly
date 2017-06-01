@@ -45,10 +45,8 @@
 "PRINT"			{return 200;}
 ".data"			{BEGIN(DATA);}
 [A-Z][a-z]*		{return  14;}
-[0x][0-64]
+"0x"[0-9]		{return   46;}
 ":"				{return 15;}
-
-<DATA>				//aqui é onde vai ter as declaracoes de variaveis que eu to 'xaxando'
 <DATA>["]			{BEGIN(STRING);}
 <DATA>[a-z]+		{return 33;}
 <DATA>"="			{return 34;}
@@ -56,7 +54,7 @@
 <DATA>".code"		{BEGIN(INITIAL);}
 <DATA>.				{return 404;}
 <STRING>["]				{BEGIN(DATA);}
-<STRING>[a-zA-Z0-9 ]+	{return 88;}
+<STRING>[a-zA-Z0-9_ ]+	{return 88;}
 <STRING>"%d"			{return 89;}
 <STRING>"%s"			{return 90;}
 <STRING>.				{return 405;}
