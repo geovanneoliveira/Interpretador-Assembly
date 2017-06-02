@@ -1,10 +1,46 @@
-Linha: 	Instrucao KW_BARRAN
-		| Label KW_COLON Intrucao KW_BARRAN
-		;
+%token KW_ADD
+%token KW_SUB
+%token KW_MUL
+%token KW_DIV
+%token KW_REG
+%token KW_BARRAN
+%token KW_COLON
+%token KW_PUSH
+%token KW_POP
+%token KW_JNZ
+%token KW_JZ
+%token KW_JE
+%token KW_JNE
+%token KW_ABRE_CONCHETES
+%token KW_FECHA_CONCHETES
+%token KW_LD
+%token KW_STO
+%token KW_DEC
+%token KW_INC
+%token KW_JMP
+%token KW_AND
+%token KW_OR
+%token KW_XOR
+%token KW_NOT
+%token KW_CALL
+%token KW_RET
+%token KW_PRINT
+%token KW_NUMBER
+%token KW_VARIAVEL 
+%token OP_IGUAL
 
-Instrucao: Soma | Subtracao | Multiplicacao | Divisao | Push | Pop | Incrementar | Decremmentar
-		 | Jump_zero | Jump_not_zero | Jump_equals | Jump_not_equals | And | Or | Load
-		 ;
+
+
+Data : KW_VARIAVEL OP_IGUAL KW_NUMBER
+	 | //to bugado aqui
+
+linha: 	Instrucao KW_BARRAN
+	| 	KW_LABEL KW_COLON Intrucao KW_BARRAN
+	;
+
+Instrucao: 	Soma | Subtracao | Multiplicacao | Divisao | Push | Pop | Incrementar | Decremmentar
+	|		Jump_zero | Jump_not_zero | Jump_equals | Jump_not_equals | And | Or | Load
+	;
 
 
 Soma: KW_ADD KW_REG KW_REG KW_REG;
@@ -22,14 +58,14 @@ Pop: KW_POP KW_REG;
 Incrementar: KW_INC KW_REG;
 
 Decremmentar: KW_DEC KW_REG;
+%token
+Jump_zero: KW_JZ KW_REG KW_ABRE_CONCHETES KW_LABEL KW_FECHA_CONCHETES;
 
-Jump_zero: KW_JZ KW_REG KW_ABRE_CONCHETES Label KW_FECHA_CONCHETES;
+Jump_not_zero: KW_JNZ KW_REG KW_ABRE_CONCHETES KW_LABEL KW_FECHA_CONCHETES;
 
-Jump_not_zero: KW_JNZ KW_REG KW_ABRE_CONCHETES Label KW_FECHA_CONCHETES;
+Jump_equals: KW_JE KW_REG KW_REG KW_ABRE_CONCHETES KW_LABEL KW_FECHA_CONCHETES;
 
-Jump_equals: KW_JE KW_REG KW_REG KW_ABRE_CONCHETES Label KW_FECHA_CONCHETES;
-
-Jump_not_equals: KW_JNE KW_REG KW_REG KW_ABRE_CONCHETES Label KW_FECHA_CONCHETES; 
+Jump_not_equals: KW_JNE KW_REG KW_REG KW_ABRE_CONCHETES KW_LABEL KW_FECHA_CONCHETES; 
 
 And: KW_AND KW_REG KW_REG KW_REG;
 
@@ -43,5 +79,5 @@ Load: KW_LD KW_REG KW_REG
 
 Sto: KW_STO KW_REG KW_ENDRECO;
 
-Call: KW_CALL KW_ABRE_CONCHETES Label KW_FECHA_CONCHETES;
+Call: KW_CALL KW_ABRE_CONCHETES KW_LABEL KW_FECHA_CONCHETES;
 

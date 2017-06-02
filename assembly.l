@@ -16,41 +16,43 @@
 %x STRING
 %%
 
+".code"			{}
 "//".*			{}
-"LD"			{return 13;}
-"STO"			{return 26;}
-\n 				{return -1;}			//acho interressante fazer isso para colocar no bison
-"DEC"			{return 16;}
-"INC"			{return 17;}
-"PUSH"			{return 18;}
-"POP"			{return 20;}
-"MUL"			{return 21;}
-"DIV"			{return 22;}
-"SUB"			{return 23;}
-"ADD"			{return 2; }
-"JMP"			{return 24;}
-"JZ"			{return 99;}
-"JNZ"			{return 25;}
-"JE"			{return 1;}
-"JNE"			{return 3; }
-"AND"			{return 4; }
-"OR"			{return 5; }
-"XOR"			{return 6; }
-"NOT"			{return 7; }
-[R][1-8]		{return 8;}
-"["				{return 9;}
-"]"				{return 10;}
-"CALL"			{return 11;}
-"RET"			{return 12;}
-"PRINT"			{return 200;}
+"LD"			{return KW_LD;}
+"STO"			{return KW_STO;}
+\n 				{return KW_BARRAN;}			//acho interressante fazer isso para colocar no bison
+"DEC"			{return KW_DEC;}
+"INC"			{return KW_INC;}
+"PUSH"			{return KW_PUSH;}
+"POP"			{return KW_POP;}
+"MUL"			{return KW_MUL;}
+"DIV"			{return KW_DIV;}
+"SUB"			{return KW_SUB;}
+"ADD"			{return KW_ADD; }
+"JMP"			{return KW_JMP;}
+"JZ"			{return KW_JZ;}
+"JNZ"			{return KW_JNZ;}
+"JE"			{return KW_JE;}
+"JNE"			{return KW_JNE; }
+"AND"			{return KW_AND; }
+"OR"			{return KW_OR; }
+"XOR"			{return KW_XOR; }
+"NOT"			{return KW_NOT; }
+[R][1-8]		{return KW_REG;}
+"["				{return KW_ABRE_CONCHETES;}
+"]"				{return KW_FECHA_CONCHETES;}
+"CALL"			{return KW_CALL;}
+"RET"			{return KW_RET;}
+"PRINT"			{return KW_PRINT;}
+[A-Z][a-z]*		{return KW_LABEL ;}
+"0x"[0-9]		{return KW_ENDRECO;}
+":"				{return KW_COLO;}
+[+-]?[0-9]+		{return KW_NUMBER;}
 ".data"			{BEGIN(DATA);}
-[A-Z][a-z]*		{return  14;}
-"0x"[0-9]		{return   46;}
-":"				{return 15;}
 <DATA>["]			{BEGIN(STRING);}
-<DATA>[a-z]+		{return 33;}
-<DATA>"="			{return 34;}
-<DATA>[+-]?[0-9]+	{return 35;}
+<DATA>[a-z]+		{return KW_VARIAVEL;}
+<DATA>"="			{return OP_IGUAL;}
+<DATA>[+-]?[0-9]+	{return KW_NUMBER;}
 <DATA>".code"		{BEGIN(INITIAL);}
 <DATA>.				{return 404;}
 <STRING>["]				{BEGIN(DATA);}
