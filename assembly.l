@@ -1,16 +1,3 @@
-%{
-
-// ta faltando como nos vamos tratar os labels pois não encotrei um logica ainda pq as variaveis não são fortementes tipadas, acho melhor nos tratarmos no bison. EX:
-/* .data
-	a = 5
-	b = 13
-	.code
-	LD R3 [a]
-	LD R1 [b]
-*/
-	
-%}
-
 %option noyywrap nodefault
 %x DATA
 %x STRING
@@ -39,8 +26,8 @@
 "XOR"			{return KW_XOR; }
 "NOT"			{return KW_NOT; }
 [R][1-8]		{return KW_REG;}
-"["				{return KW_ABRE_CONCHETES;}
-"]"				{return KW_FECHA_CONCHETES;}
+"["				{return KW_ABRE_COCHETES;}
+"]"				{return KW_FECHA_COCHETES;}
 "CALL"			{return KW_CALL;}
 "RET"			{return KW_RET;}
 "PRINT"			{return KW_PRINT;}
