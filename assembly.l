@@ -1,9 +1,7 @@
 %option noyywrap nodefault
-%x DATA
 %x STRING
 %%
 
-".code"			{}
 "//".*			{}
 "LD"			{return KW_LD;}
 "STO"			{return KW_STO;}
@@ -25,26 +23,25 @@
 "OR"			{return KW_OR; }
 "XOR"			{return KW_XOR; }
 "NOT"			{return KW_NOT; }
-[R][1-8]		{return KW_REG;}
+"MOD"			{return KW_MOD;}
 "["				{return KW_ABRE_COCHETES;}
 "]"				{return KW_FECHA_COCHETES;}
+"="				{return OP_IGUAL;}
+".code"			{return KW_CODE;}
+".data"			{return KW_DATA;}
 "CALL"			{return KW_CALL;}
 "RET"			{return KW_RET;}
 "PRINT"			{return KW_PRINT;}
+":"				{return KW_COLO;}
+[R][1-8]		{return KW_REG;}
 [A-Z][a-z]*		{return KW_LABEL ;}
 "0x"[0-9]		{return KW_ENDRECO;}
-":"				{return KW_COLO;}
 [+-]?[0-9]+		{return KW_NUMBER;}
-".data"			{BEGIN(DATA);}
-<DATA>["]			{BEGIN(STRING);}
-<DATA>[a-z]+		{return KW_VARIAVEL;}
-<DATA>"="			{return OP_IGUAL;}
-<DATA>[+-]?[0-9]+	{return KW_NUMBER;}
-<DATA>".code"		{BEGIN(INITIAL);}
-<DATA>.				{return 404;}
-<STRING>["]				{BEGIN(DATA);}
-<STRING>[a-zA-Z0-9_ ]+	{return 88;}
-<STRING>"%d"			{return 89;}
-<STRING>"%s"			{return 90;}
+[a-z][a-z]*		{return KW_VARIAVEL;}
+\"				{BEGIN(STRING); 	//duvida: ta certo isso?}
+<STRING>["]				{BEGIN(INITIAL);}
+<STRING>[a-zA-Z0-9_ ]+	{return KW_STR;}
 <STRING>.				{return 405;}
 .				{return 406;}
+
+%%
